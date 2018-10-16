@@ -49,6 +49,7 @@ type syndesisImages struct {
 	Verifier string
 	S2i      string
 	Upgrade  string
+	Komodo   string
 }
 
 type images struct {
@@ -59,6 +60,7 @@ type images struct {
 	OAuthProxyImagePrefix       string
 	PrometheusImagePrefix       string
 	PostgresExporterImagePrefix string
+	KomodoImagesPrefix          string
 }
 
 type tags struct {
@@ -68,6 +70,7 @@ type tags struct {
 	Prometheus       string
 	Upgrade          string
 	PostgresExporter string
+    Komodo     string
 }
 
 type Context struct {
@@ -92,6 +95,7 @@ var syndesisContext = Context{
 		OAuthProxyImagePrefix:       "openshift",
 		PrometheusImagePrefix:       "prom",
 		PostgresExporterImagePrefix: "wrouesnel",
+		KomodoImagesPrefix:          "teiid",
 		Support: supportImages{
 			Postgresql:       "postgresql",
 			OAuthProxy:       "oauth-proxy",
@@ -104,6 +108,7 @@ var syndesisContext = Context{
 			Verifier: "syndesis-meta",
 			S2i:      "syndesis-s2i",
 			Upgrade:  "syndesis-upgrade",
+			Komodo:   "komodo",
 		},
 	},
 	Tags: tags{
@@ -122,6 +127,7 @@ var productContext = Context{
 		OAuthProxyImagePrefix:       "openshift",
 		PrometheusImagePrefix:       "prom",
 		PostgresExporterImagePrefix: "wrouesnel",
+  	    KomodoImagesPrefix:          "dv",
 		Support: supportImages{
 			Postgresql:       "postgresql",
 			OAuthProxy:       "oauth-proxy",
@@ -134,6 +140,7 @@ var productContext = Context{
 			Verifier: "fuse-ignite-meta",
 			S2i:      "fuse-ignite-s2i",
 			Upgrade:  "fuse-ignite-upgrade",
+			Komodo:   "komodo",
 		},
 	},
 	Tags: tags{
@@ -155,6 +162,7 @@ func init() {
 	flags.BoolVar(&context.WithDockerImages, "with-docker-images", false, "With docker images")
 	flags.StringVar(&context.Tags.Syndesis, "syndesis-tag", "latest", "Syndesis Image tag to use")
 	flags.StringVar(&context.Tags.Upgrade, "upgrade-tag", "latest", "Syndesis Upgrade version")
+	flags.StringVar(&context.Tags.Komodo, "komodo-tag", "latest", "Komodo image tag to use")
 	flags.BoolVar(&context.Oso, "oso", false, "Generate product templates for SO")
 	flags.BoolVar(&context.Ocp, "ocp", false, "Generate product templates for OCP")
 	flags.BoolVar(&context.EarlyAccess, "early-access", false, "Point repositories to early-access repos")
