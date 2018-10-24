@@ -97,7 +97,10 @@
             name: prometheus
           - containerPort: 8778
             name: jolokia
-            mountPath: /deployments
+          workingDir: /deployments
+          volumeMounts:
+          - name: config-volume
+            mountPath: /deployments/config
           # Set QoS class to "Guaranteed" (limits == requests)
           # This doesn't work on OSO as there is a fixed ratio
           # from limit to resource (80% currently). 'requests' is ignored there
@@ -106,6 +109,10 @@
               memory: ${KOMODO_MEMORY_LIMIT}
             requests:
               memory: 256Mi
+        volumes:
+        - name: config-volume
+          configMap:
+            name: syndesis-server-config
     triggers:
 {{^WithDockerImages}}
     - imageChangeParams:
