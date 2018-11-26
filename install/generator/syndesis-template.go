@@ -108,7 +108,7 @@ var syndesisContext = Context{
 			Verifier: "syndesis-meta",
 			S2i:      "syndesis-s2i",
 			Upgrade:  "syndesis-upgrade",
-			Komodo:   "komodo",
+			Komodo:   "komodo-server",
 		},
 	},
 	Tags: tags{
@@ -140,7 +140,7 @@ var productContext = Context{
 			Verifier: "fuse-ignite-meta",
 			S2i:      "fuse-ignite-s2i",
 			Upgrade:  "fuse-ignite-upgrade",
-			Komodo:   "komodo",
+			Komodo:   "fuse-komodo-server",
 		},
 	},
 	Tags: tags{
