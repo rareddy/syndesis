@@ -60,6 +60,12 @@
                 fieldPath: metadata.namespace
           - name: GC_MAX_METASPACE_SIZE
             value: "512"
+          - name: AB_PROMETHEUS_OFF
+            value: "true"
+          - name: AB_OFF
+            value: "true"
+          - name: AB_JOLOKIA_OFF
+            value: "true"            
           - name: POSTGRESQL_PASSWORD
             value: ${POSTGRESQL_PASSWORD}
           - name: POSTGRESQL_USER
