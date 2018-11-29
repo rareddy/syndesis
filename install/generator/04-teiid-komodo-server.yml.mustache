@@ -65,7 +65,9 @@
           - name: AB_OFF
             value: "true"
           - name: AB_JOLOKIA_OFF
-            value: "true"            
+            value: "true"
+          - name: BUILD_IMAGE_STREAM
+            value: {{ Images.Syndesis.S2i }}:latest            
           - name: POSTGRESQL_PASSWORD
             value: ${POSTGRESQL_PASSWORD}
           - name: POSTGRESQL_USER
