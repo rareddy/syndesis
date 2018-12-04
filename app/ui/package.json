@@ -49,7 +49,7 @@
     "@ngrx/effects": "^6.0.1",
     "@ngrx/store": "^6.0.1",
     "@ngrx/store-devtools": "^6.0.1",
-    "@teiid/beetle-lib": "0.0.5",
+    "@teiid/beetle-lib": "0.0.8",
     "@types/moment": "^2.13.0",
     "angular-tree-component": "^7.1.0",
     "angular2-text-mask": "^9.0.0",
