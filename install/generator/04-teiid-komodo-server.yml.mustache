@@ -60,12 +60,6 @@
                 fieldPath: metadata.namespace
           - name: GC_MAX_METASPACE_SIZE
             value: "512"
-          - name: AB_PROMETHEUS_OFF
-            value: "true"
-          - name: AB_OFF
-            value: "true"
-          - name: AB_JOLOKIA_OFF
-            value: "true"
           - name: BUILD_IMAGE_STREAM
             value: {{ Images.Syndesis.S2i }}:latest            
           - name: POSTGRESQL_PASSWORD
@@ -86,18 +80,23 @@
           livenessProbe:
             httpGet:
               port: 8080
-              path: /vdb-builder/api-docs/index.html
+              path: "/vdb-builder/v1/swagger.json"
               httpHeaders:
               - name: Accept
-                value: 'text/plain'
-            initialDelaySeconds: 300
+                value: 'application/json'
+            initialDelaySeconds: 60
             periodSeconds: 20
-            failureThreshold: 5
+            timeoutSeconds: 5
           readinessProbe:
             httpGet:
-              path: "/vdb-builder/api-docs/index.html"
+              path: "/vdb-builder/v1/swagger.json"
               port: 8080
-            initialDelaySeconds: 10
+              httpHeaders:
+              - name: Accept
+                value: 'application/json'              
+            initialDelaySeconds: 60
+            periodSeconds: 20
+            timeoutSeconds: 5
           ports:
           - containerPort: 8080
             name: http
@@ -115,6 +114,7 @@
           resources:
             limits:
               memory: ${KOMODO_MEMORY_LIMIT}
+              cpu: 750m
             requests:
               memory: 256Mi
         volumes:
