@@ -377,7 +377,7 @@ get_replicas() {
 }
 
 patch_imagestreams_for_initial_image() {
-    for is in "syndesis-server" "syndesis-ui" "syndesis-meta" "syndesis-s2i" "syndesis-operator"; do
+    for is in "syndesis-server" "syndesis-ui" "syndesis-meta" "syndesis-s2i" "syndesis-operator" "teiid-komodo"; do
         echo "Patching imagestream $is"
         local replace_kind='{"op": "replace", "path": "/spec/tags/0/from/kind", "value": "ImageStreamTag"}'
         local replace_name="{\"op\": \"replace\", \"path\": \"/spec/tags/0/from/name\", \"value\": \"$is:latest\"}"
