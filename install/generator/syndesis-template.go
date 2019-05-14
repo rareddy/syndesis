@@ -71,7 +71,7 @@ type tags struct {
 	Prometheus       string
 	Upgrade          string
 	PostgresExporter string
-    Komodo     string
+	Komodo           string
 }
 
 type Context struct {
@@ -88,6 +88,7 @@ type Context struct {
 	Tags             tags
 	Debug            bool
 	PrometheusRules  string
+	IncludeDint      bool
 }
 
 // TODO: Could be added from a local configuration file
@@ -130,7 +131,7 @@ var productContext = Context{
 		OAuthProxyImagePrefix:       "openshift",
 		PrometheusImagePrefix:       "prom",
 		PostgresExporterImagePrefix: "wrouesnel",
-  	    KomodoImagesPrefix:          "dv",
+		KomodoImagesPrefix:          "dv",
 		Support: supportImages{
 			Postgresql:       "postgresql",
 			OAuthProxy:       "oauth-proxy",
@@ -157,7 +158,8 @@ var productContext = Context{
 
 var context = syndesisContext
 var prometheusRulesFile = ""
-const  prometheusRulesFileIndent = "      "
+
+const prometheusRulesFileIndent = "      "
 
 func init() {
 	flags := installCommand.PersistentFlags()
@@ -173,7 +175,8 @@ func init() {
 	flags.BoolVar(&context.EarlyAccess, "early-access", false, "Point repositories to early-access repos")
 	flags.StringVar(&context.Registry, "registry", "docker.io", "Registry to use for imagestreams")
 	flags.BoolVar(&context.Debug, "debug", false, "Enable debug support")
-    flags.StringVar(&prometheusRulesFile, "prometheus-rules-file", "", "Prometheus Rules file to copy as content of a configmap")
+	flags.StringVar(&prometheusRulesFile, "prometheus-rules-file", "", "Prometheus Rules file to copy as content of a configmap")
+	flags.BoolVar(&context.IncludeDint, "include-data-integration", true, "Include Data Integration")
 	pflag.CommandLine.AddGoFlagSet(flag.CommandLine)
 }
 
@@ -196,10 +199,10 @@ func install(cmd *cobra.Command, args []string) {
 		return files[i].Name() < files[j].Name()
 	})
 
-    prometheusRules, err := ioutil.ReadFile(prometheusRulesFile)
-    check(err)
+	prometheusRules, err := ioutil.ReadFile(prometheusRulesFile)
+	check(err)
 
-    context.PrometheusRules = strings.Replace(prometheusRulesFileIndent+string(prometheusRules),"\n","\n"+prometheusRulesFileIndent,-1)
+	context.PrometheusRules = strings.Replace(prometheusRulesFileIndent+string(prometheusRules), "\n", "\n"+prometheusRulesFileIndent, -1)
 
 	for _, f := range files {
 		if strings.HasSuffix(f.Name(), ".yml.mustache") {

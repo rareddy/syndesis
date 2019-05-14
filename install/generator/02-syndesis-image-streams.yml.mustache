@@ -85,6 +85,7 @@
       importPolicy:
         scheduled: true
       name: "{{ Tags.Prometheus }}"
+{{#IncludeDint}}
 - apiVersion: image.openshift.io/v1
   kind: ImageStream
   metadata:
@@ -101,7 +102,8 @@
         name: ${SYNDESIS_REGISTRY}/{{ Images.KomodoImagesPrefix }}/{{ Images.Syndesis.Komodo }}:{{ Tags.Komodo }}
       importPolicy:
         scheduled: true
-      name: "{{ Tags.Komodo }}"       
+      name: "{{ Tags.Komodo }}"
+{{/IncludeDint}}       
 - apiVersion: image.openshift.io/v1
   kind: ImageStream
   metadata:
