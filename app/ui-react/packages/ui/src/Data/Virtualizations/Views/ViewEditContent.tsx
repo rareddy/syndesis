@@ -1,8 +1,18 @@
+import 'codemirror/lib/codemirror.css';
+import 'codemirror/theme/material.css';
+
 import { Alert, Button, Card } from 'patternfly-react';
 import * as React from 'react';
 import { Loader, PageSection } from '../../../Layout';
 import { ITextEditor, TextEditor } from '../../../Shared';
 import './ViewEditContent.css';
+
+import 'codemirror/addon/hint/show-hint.css';
+
+require('codemirror/mode/sql/sql');
+require('codemirror/addon/hint/show-hint');
+require('codemirror/addon/hint/sql-hint');
+require('codemirror/addon/edit/matchbrackets');
 
 export interface IViewEditValidationResult {
   message: string;
@@ -111,15 +121,21 @@ export class ViewEditContent extends React.Component<
 
   public render() {
     const editorOptions = {
-      dragDrop: false,
       gutters: ['CodeMirror-lint-markers'],
       lineNumbers: true,
       lineWrapping: true,
-      mode: 'text/x-sql',
+      mode: 'text/x-mysql',
+      matchBrackets : true,
+      autofocus: true,
       readOnly: false,
       showCursorWhenSelecting: true,
       styleActiveLine: true,
       tabSize: 2,
+      extraKeys: {"Ctrl-Space": "autocomplete"},
+      hintOptions: {tables: {
+        users: ["name", "score", "birthDate"],
+        countries: ["name", "population", "size"]
+      }}
     };
     return (
       <PageSection>
